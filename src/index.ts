@@ -1,17 +1,17 @@
-import ReactNativeWidgetExtension from "./ReactNativeWidgetExtensionModule";
+import ReactNativeWidgetExtensionAppClip from "./ReactNativeWidgetExtensionAppClipModule";
 
 export function areActivitiesEnabled(): boolean {
-  return ReactNativeWidgetExtension.areActivitiesEnabled();
+  return ReactNativeWidgetExtensionAppClip.areActivitiesEnabled();
 }
 
 export function startActivity(...args: any): void {
-  return ReactNativeWidgetExtension.startActivity(...args);
+  return ReactNativeWidgetExtensionAppClip.startActivity(...args);
 }
 
 export function updateActivity(...args: any): void {
-  return ReactNativeWidgetExtension.updateActivity(...args);
+  return ReactNativeWidgetExtensionAppClip.updateActivity(...args);
 }
 
 export function endActivity(...args: any): void {
-  return ReactNativeWidgetExtension.endActivity(...args);
+  return ReactNativeWidgetExtensionAppClip.endActivity(...args);
 }

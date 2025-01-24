@@ -27,7 +27,7 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
 ) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
     config.name
-  )}Widgets`;
+  )}ClipWidgets`;
   const bundleIdentifier = appClipBundleId ? `${appClipBundleId}.${targetName}` : `${config.ios?.bundleIdentifier}.${targetName}`;
 
   config.ios = {

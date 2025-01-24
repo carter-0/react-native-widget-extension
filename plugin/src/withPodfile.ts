@@ -1,5 +1,5 @@
-import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import { ConfigPlugin, withDangerousMod } from "@expo/config-plugins";
+import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -31,11 +31,11 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
       ); */
 
       podFileContent = mergeContents({
-        tag: "react-native-widget-extension-1",
+        tag: "react-native-widget-extension-app-clip-1",
         src: podFileContent,
         newSrc: `installer.pods_project.targets.each do |target|
           target.build_configurations.each do |config|
-            # Sentry has build errors unless configured as 'YES' for the Sentry target: https://github.com/bndkt/react-native-widget-extension/issues/24
+            # Sentry has build errors unless configured as 'YES' for the Sentry target: https://github.com/bndkt/react-native-widget-extension-app-clip/issues/24
             config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = target.name == 'Sentry' ? 'YES' : 'No'
           end
         end`,
@@ -46,7 +46,7 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
       }).contents;
 
       /* podFileContent = mergeContents({
-        tag: "react-native-widget-extension-2",
+        tag: "react-native-widget-extension-app-clip-2",
         src: podFileContent,
         newSrc: `pod 'WidgetExtension', :path => '../WidgetExtension/ios'`,
         anchor: /use_react_native/,
@@ -55,14 +55,14 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
       }).contents; */
 
       podFileContent = podFileContent
-        .concat(`\n\n# >>> Inserted by react-native-widget-extension\n`)
+        .concat(`\n\n# >>> Inserted by react-native-widget-extension-app-clip\n`)
         .concat(
           `target '${targetName}' do
             use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
             use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
           end`
         )
-        .concat(`\n# >>> Inserted by react-native-widget-extension`);
+        .concat(`\n# >>> Inserted by react-native-widget-extension-app-clip`);
 
       fs.writeFileSync(podFilePath, podFileContent);
 

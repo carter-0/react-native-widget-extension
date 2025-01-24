@@ -3,7 +3,7 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, '..', 'package.json')))
 
 Pod::Spec.new do |s|
-  s.name           = 'ReactNativeWidgetExtension'
+  s.name           = 'ReactNativeWidgetExtensionAppClip'
   s.version        = package['version']
   s.summary        = package['description']
   s.description    = package['description']
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.homepage       = package['homepage']
   s.platform       = :ios, '13.0'
   s.swift_version  = '5.4'
-  s.source         = { git: 'https://github.com/bndkt/react-native-widget-extension' }
+  s.source         = { git: 'https://github.com/carter-0/react-native-widget-extension-app-clip' }
   s.static_framework = true
 
   s.dependency 'ExpoModulesCore'
