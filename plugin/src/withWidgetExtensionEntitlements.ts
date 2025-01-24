@@ -1,5 +1,5 @@
-import plist from "@expo/plist";
 import { ConfigPlugin, withInfoPlist } from "@expo/config-plugins";
+import plist from "@expo/plist";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -15,9 +15,12 @@ export const withWidgetExtensionEntitlements: ConfigPlugin<{
     const targetPath = path.join(config.modRequest.platformProjectRoot, targetName);
     const filePath = path.join(targetPath, `${targetName}.entitlements`);
 
-    const appClipEntitlements = getWidgetExtensionEntitlements(config.ios, {
-      groupIdentifier,
-    });
+    const appClipEntitlements = {
+      ...getWidgetExtensionEntitlements(config.ios, {
+        groupIdentifier,
+      }),
+      "com.apple.developer.on-demand-install-capable": true,
+    };
 
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(filePath, plist.build(appClipEntitlements));
