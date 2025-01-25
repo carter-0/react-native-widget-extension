@@ -34,21 +34,21 @@ export function addBuildPhases(
   } = widgetFiles;
 
   // Sources build phase
-  xcodeProject.addBuildPhase(
-    [...swiftFiles, ...intentFiles],
-    "PBXSourcesBuildPhase",
-    groupName,
-    targetUuid,
-    folderType,
-    buildPath
-  );
+  // xcodeProject.addBuildPhase(
+  //   [...swiftFiles, ...intentFiles],
+  //   "PBXSourcesBuildPhase",
+  //   groupName,
+  //   targetUuid,
+  //   folderType,
+  //   buildPath
+  // );
 
   // Copy files build phase
   xcodeProject.addBuildPhase(
     [],
     "PBXCopyFilesBuildPhase",
     groupName,
-    targetUuid,
+    xcodeProject.getFirstTarget().uuid,
     folderType,
     buildPath
   );
@@ -72,12 +72,12 @@ export function addBuildPhases(
   );
 
   // Resources build phase
-  xcodeProject.addBuildPhase(
-    [...assetDirectories],
-    "PBXResourcesBuildPhase",
-    groupName,
-    targetUuid,
-    folderType,
-    buildPath
-  );
+  // xcodeProject.addBuildPhase(
+  //   [...swiftFiles, ...intentFiles, ...assetDirectories],
+  //   "PBXResourcesBuildPhase",
+  //   groupName,
+  //   targetUuid,
+  //   folderType,
+  //   buildPath
+  // );
 }

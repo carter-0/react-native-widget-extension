@@ -1,6 +1,6 @@
 {
   "name": "react-native-widget-extension-app-clip",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Expo config plugin to add widgets and live activities to a React Native app [FORK FOR APP CLIP SUPPORT]",
   "main": "build/index.js",
   "types": "build/index.d.ts",

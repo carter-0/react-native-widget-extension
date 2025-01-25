@@ -7,41 +7,21 @@ export const withConfig: ConfigPlugin<{
   targetName: string;
   groupIdentifier?: string;
 }> = (config, { bundleIdentifier, targetName, groupIdentifier }) => {
-  let configIndex: null | number = null;
+  // Store all matching extension indices
+  const configIndices: number[] = [];
   config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach((ext: any, index: number) => {
-    if (ext.targetName === targetName && ext.bundleIdentifier === bundleIdentifier) {
-      configIndex = index;
+    if (ext.targetName === targetName) {
+      configIndices.push(index);
     }
   });
 
-  if (!configIndex) {
-    config.extra = {
-      ...config.extra,
-      eas: {
-        ...config.extra?.eas,
-        build: {
-          ...config.extra?.eas?.build,
-          experimental: {
-            ...config.extra?.eas?.build?.experimental,
-            ios: {
-              ...config.extra?.eas?.build?.experimental?.ios,
-              appExtensions: [
-                ...(config.extra?.eas?.build?.experimental?.ios?.appExtensions ?? []),
-                {
-                  targetName,
-                  bundleIdentifier,
-                },
-              ],
-            },
-          },
-        },
-      },
-    };
-    configIndex = 0;
-  }
+  // Handle each matching extension
+  configIndices.forEach(index => {
+    const widgetsExtensionConfig = config.extra?.eas?.build?.experimental?.ios?.appExtensions?.[index];
 
-  if (configIndex != null && config.extra) {
-    const widgetsExtensionConfig = config.extra.eas.build.experimental.ios.appExtensions[configIndex];
+    if (!widgetsExtensionConfig) {
+      return config;
+    }
 
     widgetsExtensionConfig.entitlements = {
       ...widgetsExtensionConfig.entitlements,
@@ -56,7 +36,7 @@ export const withConfig: ConfigPlugin<{
         ...addApplicationGroupsEntitlement(config.ios?.entitlements ?? {}, groupIdentifier),
       },
     };
-  }
+  });
 
   return config;
 };

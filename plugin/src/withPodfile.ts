@@ -54,15 +54,17 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
         comment: "#",
       }).contents; */
 
-      podFileContent = podFileContent
-        .concat(`\n\n# >>> Inserted by react-native-widget-extension-app-clip\n`)
-        .concat(
-          `target '${targetName}' do
-            use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
-            use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
-          end`
-        )
-        .concat(`\n# >>> Inserted by react-native-widget-extension-app-clip`);
+      if (!podFileContent.includes(`target '${targetName}'`)) {
+        podFileContent = podFileContent
+          .concat(`\n\n# >>> Inserted by react-native-widget-extension-app-clip\n`)
+          .concat(
+            `target '${targetName}' do
+              use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
+              use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
+            end`
+          )
+          .concat(`\n# >>> Inserted by react-native-widget-extension-app-clip`);
+      }
 
       fs.writeFileSync(podFilePath, podFileContent);
 
