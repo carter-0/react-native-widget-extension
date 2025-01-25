@@ -9,7 +9,7 @@ export const withConfig: ConfigPlugin<{
 }> = (config, { bundleIdentifier, targetName, groupIdentifier }) => {
   let configIndex: null | number = null;
   config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach((ext: any, index: number) => {
-    if (ext.targetName === targetName) {
+    if (ext.targetName === targetName && ext.bundleIdentifier === bundleIdentifier) {
       configIndex = index;
     }
   });

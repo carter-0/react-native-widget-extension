@@ -13,7 +13,6 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
   attributesFileName?: string;
   groupIdentifier?: string;
   appClipBundleId?: string;
-  namespace?: string;
 }> = (
   config,
   {
@@ -24,12 +23,11 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
     attributesFileName = "Attributes.swift",
     groupIdentifier,
     appClipBundleId,
-    namespace = "AppClip",
   }
 ) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
     config.name
-  )}${namespace}Widgets`;
+  )}ClipWidgets`;
   const bundleIdentifier = appClipBundleId ? `${appClipBundleId}.${targetName}` : `${config.ios?.bundleIdentifier}.${targetName}`;
 
   config.ios = {
